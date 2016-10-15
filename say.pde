@@ -1,4 +1,4 @@
-String lines[], exp, txt;
+String lines[], exp, txt, path;
 int cnt, rate;
 boolean show = true;
 void setup() {
@@ -6,7 +6,6 @@ void setup() {
   cnt = -1;
   rate = 150;
   exp = "key: operation\nright: next sentence\nleft: previous sentence\nup: increase reading speed\ndown: decrease reading speed\nenter: read current sentence again\nspace: mask/show sentence";
-  lines = loadStrings("./text.txt"); //path to read file
   size(500, 500);
   fill(0);
   noLoop();
@@ -16,7 +15,12 @@ void draw() {
   textSize(20);
   textAlign(CENTER);
   if (cnt<0) {
-    text("press RIGHT key to start", width/2, 200);
+    text("select file and press RIGHT key to start", width/2, 200);
+    fill(244, 232, 193);
+    noStroke();
+    rect(0, height-50, width, height);
+    fill(0);
+    text("select file", width/2, height-25);
   }
   text(txt, 10, height/2-50, width-20, 100);
   textAlign(RIGHT);
@@ -63,3 +67,18 @@ void keyPressed() {
   }
 }
 
+void mousePressed(){
+  if(mouseY>height-50){
+    selectInput("Select a file to process:", "fileSelected");
+  }
+}
+
+void fileSelected(File selection) {
+  if (selection == null) {
+    println("Window was closed or the user hit cancel.");
+  } else {
+    path = selection.getAbsolutePath() + "/";
+    lines = loadStrings(path);
+    println("User selected " + selection.getAbsolutePath());
+  }
+}
