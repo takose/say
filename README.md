@@ -8,4 +8,4 @@
 Processing 2
 
 ## LICENSE
-Licensed under [MIT License](https://izumin.mit-license.org/2016)
+Licensed under MIT License
